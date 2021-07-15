@@ -17,8 +17,8 @@ RPC rules:
 */
 
 type Item struct {
-	title string
-	body string
+	Title string
+	Body string
 }
 
 type API int
@@ -34,7 +34,7 @@ func (api *API) GetDB(title string, reply *[]Item) error {
 //  returns empty Item if not found
 func (api *API) GetByTitle(title string, reply *Item) (int, error) {
 	for i, item := range database {
-		if item.title == title {
+		if item.Title == title {
 			*reply = item
 			return i, nil
 		}
@@ -53,7 +53,7 @@ func (api *API) AddItem(item Item, reply *Item) error {
 //  if not found, returns empty item
 func (api *API) UpdateItem(edit Item, reply *Item) error {
 	var old_item Item
-	idx, _ := api.GetByTitle(edit.title, &old_item)
+	idx, _ := api.GetByTitle(edit.Title, &old_item)
 
 	if idx != -1 {
 		database[idx] = edit
@@ -67,7 +67,7 @@ func (api *API) UpdateItem(edit Item, reply *Item) error {
 // **Requires that item exists in database
 func (api *API) DeleteItem(item Item, reply *Item) error {
 	var old_item Item
-	idx, _ := api.GetByTitle(item.title, &old_item)
+	idx, _ := api.GetByTitle(item.Title, &old_item)
 
 	database = append(database[:idx], database[idx+1:] ...)
 	*reply = old_item
