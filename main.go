@@ -25,6 +25,11 @@ type API int
 
 var database []Item
 
+func (api *API) GetDB(title string, reply *[]Item) error {
+	*reply = database
+	return nil
+}
+
 // Retrieves an item and its index from database given its title
 //  returns empty Item if not found
 func (api *API) GetByTitle(title string, reply *Item) (int, error) {
